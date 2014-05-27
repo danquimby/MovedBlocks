@@ -1,11 +1,16 @@
 #ifndef HELPERS_H
 #define HELPERS_H
 
-#include <sstream>
-#include <vector>
-
 #include "hge/hge.h"
+
+#include <Windows.h>
+#include <iostream>
+#include <sstream>
+#include <iostream>
+
 #include "hge/hgeanim.h"
+#include <map>
+#include <vector>
 
 #define DBOUT( s )            \
 {                             \
@@ -165,9 +170,6 @@ namespace DQ
         return hge;
     }
 
-    /*
-    * Class to work whit RGB variables.
-    */
     struct color {
         unsigned R, G, B;
 
