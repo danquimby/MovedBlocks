@@ -1,30 +1,32 @@
 
 
-#include "helpers.h"
-#include <math.h>
 
-#include <vector>
+#include "window.h"
 
 #pragma comment (lib, "hge.lib")
 #pragma comment (lib, "hgehelp.lib")
 #pragma comment (lib, "tinyxmlD.lib")
 
-
 HGE *hge = 0;
 
-hgeSprite*	sprite;
+Window* window;
+
+// Main process loop.
 bool FrameFunc()
 {
     if (hge->Input_GetKeyState(HGEK_ESCAPE)) return true;
-    //		pGame->process();
+    window->Process();
     return false;
 }
+
+// Main draw loop.
 bool RenderFunc()
 {
     hge->Gfx_BeginScene();
-    hge->Gfx_Clear(0xff000000);
-    sprite->Render(0,0);
-    //		pGame->draw();
+    hge->Gfx_Clear(DQ::colorConvert("blue").convertToDword());
+
+    window->Render();
+
     hge->Gfx_EndScene();
     return false;
 
@@ -32,13 +34,9 @@ bool RenderFunc()
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
+    hge = DQ::cloneHGE();
+    if (!hge) return 1;
 
-
-    hge = hgeCreate(HGE_VERSION);
-    if (!hge){
-        //MessageBox(NULL, (LPCTSTR)hge->System_GetErrorMessage(), (LPCTSTR)"Error", MB_OK | MB_ICONERROR | MB_APPLMODAL);
-        return 1;
-    }
     hge->System_SetState(HGE_FRAMEFUNC, FrameFunc);
     hge->System_SetState(HGE_RENDERFUNC, RenderFunc);
     hge->System_SetState(HGE_TITLE, "tittle ");
@@ -50,6 +48,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
     if(hge->System_Initiate())
     {
+        window = new Window;
         hge->System_Start();
     }
     hge->System_Shutdown();

@@ -155,31 +155,56 @@ namespace DQ
         Size<int> m_szRectCell;
     };
 
-
-    struct ResourceItem {
-        enum {TYPE_BUTTON,TYPE_TEXT,TYPE_OBJECT,NONE};
-
-        ResourceItem()
-            : m_nType(NONE) , m_nId(-1) {}
-        int m_nType;// type 
-        int m_nId;// for game object instead of a name property 
-        PointF  m_ptPosition;// move to object (for text_edit)
-        RectF	m_rtArea;// area object
-        RectF	m_rtTextArea; // area for text view
-        std::string m_sFileName;// file name to resource if exist property
-
-    };
-    struct ResourceMainItems{
-        std::string	m_strFileNameTile;
-        std::string	m_strFileNameBackground;
-        std::string	m_strFileNameFont;
-
-    };
-
     /*
     example
     std::vector< DQ::RectF > rectangle = calculationRectangleFrames(Size<float>(30,30),3);
     */
     extern inline std::vector< RectF > calculationRectangleFrames(Size<float>& ,int );
+
+    inline HGE* cloneHGE() {
+        HGE* hge = hgeCreate(HGE_VERSION);
+            if (!hge){
+                MessageBox(NULL, (LPCTSTR)hge->System_GetErrorMessage(), (LPCTSTR)"Error", MB_OK | MB_ICONERROR | MB_APPLMODAL);
+                return 0;
+            }
+        return hge;
+    }
+
+    struct color {
+        unsigned R, G, B;
+
+        color(unsigned r, unsigned g, unsigned b) 
+            : R(r), G(g), B(b)
+        {}
+        void fill(unsigned r, unsigned g, unsigned b) {
+            R = r;
+            G = g;
+            B = b;
+        }
+
+        // Convert RGB number to DWORD (0xff000000), first element alpha channel.
+        DWORD convertToDword(unsigned _alpha = 0xff) {
+            return (_alpha << 24) | (R << 16) | (G << 8) | (B);
+        }
+    };
+
+    inline color colorConvert(const std::string sColor ) {
+        if (sColor == "black")
+            return color(0, 0, 0);
+        if (sColor == "white")
+            return color(255, 255, 255);
+        if (sColor == "yellow")
+            return color(255, 255, 0);
+        if (sColor == "blue")
+            return color(0, 0, 255);
+        if (sColor == "red")
+            return color(255, 0, 0);
+        if (sColor == "green")
+            return color(0, 255, 0);
+        if (sColor == "gray")
+            return color(192, 192, 192);
+
+        return color(0, 0, 0);
+    }
 }
 #endif // HELPERS_H
