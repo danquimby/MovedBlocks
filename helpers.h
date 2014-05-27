@@ -14,6 +14,12 @@
     OutputDebugString( os_.str().c_str() );  \
 }
 
+// Default size all sprites in game
+#define SPRITE_WIDTH    64
+#define SPRITE_HEIGHT   64
+
+#define MAP_WIDTH    30
+#define MAP_HEIGHT   100
 
 namespace DQ
 {
@@ -165,9 +171,17 @@ namespace DQ
         SizeI m_szRectCell;
     };
 
+    // Default size.
+    // @return Rectangle current from grid.
+    inline RectI getCell(const PointI& _pt) {
+        PointI res;
+        Grid grid(DQ::SizeI(MAP_WIDTH, MAP_HEIGHT),DQ::SizeI(SPRITE_WIDTH, SPRITE_HEIGHT));
+        return grid.getCell(_pt.X(), _pt.Y());
+    }
+
     /*
     example
-    std::vector< DQ::RectF > rectangle = calculationRectangleFrames(Size<float>(30,30),3);
+    std::vector< DQ::RectF > rectangle = calculationRectangleFrames(Size<float>(30.f,30.f),3);
     */
     extern inline std::vector< RectF > calculationRectangleFrames(Size<float>& ,int );
 
@@ -189,6 +203,7 @@ namespace DQ
         color(unsigned r, unsigned g, unsigned b) 
             : R(r), G(g), B(b)
         {}
+
         void fill(unsigned r, unsigned g, unsigned b) {
             R = r;
             G = g;

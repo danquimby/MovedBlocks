@@ -8,7 +8,9 @@
 static HTEXTURE    g_nTiledTexture;
 
 struct IDrawaibleObjects {
-    virtual void Render() = 0;
+
+    //@param offset This grid point.
+    virtual void Render(const DQ::PointF& /*offset*/) = 0;
     virtual void Process() = 0;
 };
 
@@ -53,28 +55,21 @@ public:
     void modification(const GameBlockType );
 
     // @override method for render to scene.
-    void Render();
+    void Render(const DQ::PointF& _ptOffset = DQ::PointF());
 
     // @override method for processing object.
     void Process();
 
     DQ::RectF area() const;
-    void setArea(const DQ::RectF& );
 private:
     void _init(const GameBlockType );
 
     hgeSprite*  m_pBlockImage;
     HGE*        m_pHGE;
 
-    // Default width and height equal 64.
-    // Rectangle position object to global game map.
-    DQ::RectF   m_rtAreaBlock;
-
     // Position object to grid.
     DQ::PointI  m_ptPostionOnGrid;
 
-    // Rectangle area for show object from tiled image.
-    DQ::RectF   m_rtViewAreaBlock;
 
 };
 

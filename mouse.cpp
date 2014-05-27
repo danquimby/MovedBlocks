@@ -23,7 +23,7 @@ void Mouse::setMouseType(const MouseType _type) {
     m_nMouseType = _type;
 }
 
-void Mouse::Render() {
+void Mouse::Render(const DQ::PointF& _ptOffset) {
     m_pImageCursor->Render(m_MouseEvent.m_ptMousePosition.X(), m_MouseEvent.m_ptMousePosition.Y());
 }
 

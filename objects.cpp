@@ -28,8 +28,8 @@ void GameBlock::moveObject(const DQ::PointI& _vecDirection) {
 
 }
 
-void GameBlock::Render() {
-    m_pBlockImage->Render(0,0);
+void GameBlock::Render(const DQ::PointF& _ptOffset) {
+    m_pBlockImage->Render((float) m_ptPostionOnGrid.X() * SPRITE_WIDTH, (float) m_ptPostionOnGrid.Y() * SPRITE_HEIGHT);
 }
 
 void GameBlock::Process() {
@@ -37,15 +37,10 @@ void GameBlock::Process() {
 }
 
 DQ::RectF GameBlock::area() const {
-    return m_rtAreaBlock;
-}
-
-void GameBlock::setArea(const DQ::RectF& _area) {
-    m_rtAreaBlock = _area;
+    return DQ::RectF();
 }
 
 void GameBlock::_init(const GameBlockType _type) {
     if (_type > GAME_BLOCK_MAX) return;
-
-    m_pBlockImage = new hgeSprite(g_nTiledTexture,(float) (_type % 10) * 64,(float) (_type / 10) * 64,64,64);
+    m_pBlockImage = new hgeSprite(g_nTiledTexture,(float) (_type % 10) * SPRITE_WIDTH,(float) (_type / 10) * SPRITE_HEIGHT,SPRITE_WIDTH,SPRITE_HEIGHT);
 }
