@@ -14,6 +14,7 @@
     OutputDebugString( os_.str().c_str() );  \
 }
 
+
 namespace DQ
 {
 
@@ -59,6 +60,13 @@ namespace DQ
         {
             return _pt.X() == X() && _pt.Y() == Y();
         }
+        Point<T> operator+= (const Point<T> & _pt) 
+        {
+            x += _pt.X();
+            y += _pt.Y();
+            return *this;
+        }
+
     protected:
         T x,y;
     };
@@ -98,10 +106,10 @@ namespace DQ
             setHeight(_size.Height());
             return *this;
         }
-        Rect<T> operator= (const Point<T> & _point) 
+        Rect<T> operator= (const Point<T> & _pt) 
         {
-            setX(_point.X());
-            setY(_point.Y());
+            setX(_pt.X());
+            setY(_pt.Y());
             return *this;
         }
         Rect<T> operator+= (const Rect<T> & _rt)
@@ -110,6 +118,12 @@ namespace DQ
             y += _rt.Y();
             w += _rt.Width();
             h += _rt.Height();
+            return *this;
+        }
+        Rect<T> operator+= (const Point<T> & _pt)
+        {
+            x += _pt.X();
+            y += _pt.Y();
             return *this;
         }
         Point<T> toPoint()
@@ -133,21 +147,22 @@ namespace DQ
     typedef Rect<int> RectI;
     typedef Point<float> PointF;
     typedef Point<int> PointI;
+    typedef Size<int> SizeI;
 
     /*
     class Grid is to work automatic distribution of cell coordinates 
     example
-    DQ::Grid grid(DQ::Size<int>(100,100),DQ::Size<int>(10,10));
-    DQ::Rect<int> rt = grid.getCell(3,1);
-
+    DQ::Grid grid(DQ::SizeI(100,100),DQ::SizeI(10,10));
+    DQ::RectI rt = grid.getCell(3,1);
     */
     class Grid {
     public:
-        Grid(Size<int> area, Size<int> szCell);
-        Rect<int> getCell(int _row, int _col);
+        Grid(SizeI area, SizeI szCell);
+        RectI getCell(int _row, int _col);
+        RectI getCell(const PointI& );
     private:
-        Size<int> m_szRectArea;
-        Size<int> m_szRectCell;
+        SizeI m_szRectArea;
+        SizeI m_szRectCell;
     };
 
     /*

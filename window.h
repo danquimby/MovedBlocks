@@ -1,6 +1,7 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 
+
 #include "mouse.h"
 #include "helpers.h"
 

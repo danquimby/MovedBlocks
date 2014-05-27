@@ -21,16 +21,20 @@ namespace DQ
     //--------------------------------------------------------
     Grid::Grid(Size<int> _area, Size<int> _szCell) 
         : m_szRectArea(_area),m_szRectCell(_szCell) 
-    {
+    {    }
 
+    RectI Grid::getCell(const PointI& _ptGrid) {
+        return getCell(_ptGrid.X(), _ptGrid.Y());
     }
-    Rect<int> Grid::getCell(int _row, int _col) {
-        Rect<int> result;
+
+    RectI Grid::getCell(int _row, int _col) {
+        RectI result;
         result = m_szRectCell;
         result.setX(result.Width() * _row);
         result.setY(result.Height() * _col);
         return result;
     }
+
 //--------------------------------------------------------
 
 }
