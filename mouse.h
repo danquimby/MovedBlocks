@@ -27,7 +27,7 @@ public:
     void setMouseType(const MouseType );
 
     // @override method for render to scene.
-    void Render();
+    void Render(const DQ::PointF& = DQ::PointF());
 
     // @override method for processing object.
     void Process();
