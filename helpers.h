@@ -11,7 +11,7 @@
 {                             \
     std::ostringstream os_;    \
     os_ << s;                   \
-    OutputDebugString( os_.str().c_str() );  \
+    OutputDebugString( os_.str().c_str() ); \
 }
 
 // Default size all sprites in game

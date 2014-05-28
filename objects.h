@@ -69,8 +69,6 @@ private:
 
     // Position object to grid.
     DQ::PointI  m_ptPostionOnGrid;
-
-
 };
 
 /*

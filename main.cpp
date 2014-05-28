@@ -2,6 +2,7 @@
 
 
 #include "window.h"
+#include "parserXmlMap.h"
 
 #pragma comment (lib, "hge.lib")
 #pragma comment (lib, "hgehelp.lib")
@@ -34,6 +35,7 @@ bool RenderFunc()
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
+    parserXmlMap pars("data/tiled_bit.tmx");
     hge = DQ::cloneHGE();
     if (!hge) return 1;
 
