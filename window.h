@@ -2,8 +2,8 @@
 #define WINDOW_H
 
 
+#include "parserXmlMap.h"
 #include "mouse.h"
-#include "helpers.h"
 
 /*
 * Main window.
@@ -21,8 +21,11 @@ public:
     // @override method for processing object.
     void Process();
 
+    void clearBlocks();
 private:
+    void _initGameMap();
 
+    std::vector<GameBlock*> m_vGameBlock;
 };
 
 #endif //WINDOW_H

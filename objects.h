@@ -15,6 +15,7 @@ struct IDrawaibleObjects {
 };
 
 enum GameBlockType {
+    GAME_BLOCK_NONE,
     GAME_BLOCK_GRASS,
     GAME_BLOCK_ROCK,
     GAME_BLOCK_ROCK1,
@@ -29,7 +30,7 @@ enum GameBlockType {
     GAME_BLOCK_GROUND,
     GAME_BLOCK_TREE,
     GAME_BLOCK_TREE1,
-    GAME_BLOCK_MAX
+    GAME_BLOCK_MAX = GAME_BLOCK_TREE1
 };
 
 /*
@@ -74,7 +75,9 @@ private:
 /*
 * Factory class blocks.
 * @param GameBlockType Number id game block.
+* @param _ptPosition Position game block to scene(in grid pointer).
+* @return If don't create object <code>null<code> otherwise current new pointer.
 */
-GameBlock* createBlock(const GameBlockType );
+GameBlock* createBlock(const GameBlockType ,const DQ::PointI& /*_ptPosition*/);
 
 #endif // OBJECTS_H

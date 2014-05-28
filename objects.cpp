@@ -44,3 +44,16 @@ void GameBlock::_init(const GameBlockType _type) {
     if (_type > GAME_BLOCK_MAX) return;
     m_pBlockImage = new hgeSprite(g_nTiledTexture,(float) (_type % 10) * SPRITE_WIDTH,(float) (_type / 10) * SPRITE_HEIGHT,SPRITE_WIDTH,SPRITE_HEIGHT);
 }
+
+/*
+* Create complex block.
+*
+*/
+GameBlock* createBlock(const GameBlockType _type, const DQ::PointI& _ptPosition) {
+    GameBlock* block;
+    if (_type == GAME_BLOCK_NONE || _type > GAME_BLOCK_MAX) return 0;
+    int type = (int)_type;
+    block = new GameBlock((GameBlockType)--type);
+    block->setPositionObject(_ptPosition);
+    return block;
+}
