@@ -81,12 +81,14 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mouse.cpp" />
     <ClCompile Include="objects.cpp" />
+    <ClCompile Include="parserXmlMap.cpp" />
     <ClCompile Include="window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="helpers.h" />
     <ClInclude Include="mouse.h" />
     <ClInclude Include="objects.h" />
+    <ClInclude Include="parserXmlMap.h" />
     <ClInclude Include="window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
