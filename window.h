@@ -1,6 +1,7 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 
+#include <list>
 
 #include "parserXmlMap.h"
 #include "mouse.h"
@@ -29,7 +30,8 @@ private:
     void _initGameMap();
 
     // Contains game block.
-    std::vector<GameBlock*> m_vGameBlock;
+    std::list<GameBlock*> m_vGameBlock;
+    typedef std::list<GameBlock*>::iterator iterator;
 
     // Pointer main engine.
     HGE* hge;

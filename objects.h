@@ -1,7 +1,9 @@
 #ifndef OBJECTS_H
 #define OBJECTS_H
 
+#include <math.h>
 #include "helpers.h"
+
 
 // Full tiled image.
 // If m_nTiledTexture equal 0 than create texture from file.
@@ -81,17 +83,18 @@ private:
 */
 GameBlock* createBlock(const GameBlockType ,const DQ::PointI& /*_ptPosition*/);
 
-/*
-
+// Animation position from position view to position target.
 class CapturePosition {
 public:
+    // @param Position scene.
     // @param Pointer game block for capture.
-    CapturePosition(const GameBlock* );
+    CapturePosition(const DQ::PointF&, const GameBlock* );
 
+    // @param Set new position to scene view.
+    void setNewPositionView(const DQ::PointF& );
     // Update move.
-    // @param _ptSelf Self pointer.
-    // @return New vector for animation position.
-    DQ::PointF update(const DQ::PointF& _ptSelf);
+    // @return Vector for animation position in scene.
+    DQ::PointF update();
 
     // Clear pointer game block and stop capture.
     void cleanCapture();
@@ -99,10 +102,16 @@ public:
     // @param Set new pointer game block.
     void setCapture(const GameBlock* );
 private:
+    // Capture object.
     GameBlock*  m_pCaptureBlock;
+
+    // Position view scene.
+    DQ::PointF  m_ptVectorView;
+
+    // Speed animation position.
+    int         m_nSpeed;
 };
 
-*/
     /*
     // Get a Vector between object A and Target
     double _nx = objT.X - objA.X;

@@ -44,7 +44,7 @@ DQ::PointI GameBlock::positionGrid() const {
 }
 
 DQ::PointF GameBlock::positionView() const {
-    return DQ::PointF(m_ptPostionOnGrid.X() * SPRITE_WIDTH, m_ptPostionOnGrid.Y() * SPRITE_HEIGHT);
+    return DQ::PointF((float) m_ptPostionOnGrid.X() * SPRITE_WIDTH, (float) m_ptPostionOnGrid.Y() * SPRITE_HEIGHT);
 }
 
 void GameBlock::_init(const GameBlockType _type) {
@@ -63,4 +63,25 @@ GameBlock* createBlock(const GameBlockType _type, const DQ::PointI& _ptPosition)
     block = new GameBlock((GameBlockType)--type);
     block->setPositionObject(_ptPosition);
     return block;
+}
+
+CapturePosition::CapturePosition(const DQ::PointF&, const GameBlock* ) {
+
+}
+
+void CapturePositionsetNewPositionView(const DQ::PointF& ) {
+
+}
+
+DQ::PointF CapturePosition::update() {
+
+    return DQ::PointF();
+}
+
+void CapturePosition::cleanCapture() {
+
+}
+
+void CapturePosition::setCapture(const GameBlock* ) {
+
 }

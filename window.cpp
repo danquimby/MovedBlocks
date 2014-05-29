@@ -6,8 +6,8 @@ Window::Window() {
 
     // Set default virtual center.
     m_ptPositionVirtualScreen = pointCentr;
-
-    m_ptPositionVirtualScreen = m_vGameBlock[m_vGameBlock.size() - 1]->positionView().negative();
+    m_ptPositionVirtualScreen = m_ptPositionVirtualScreen.negative();
+  //  m_ptPositionVirtualScreen = m_vGameBlock[m_vGameBlock.size() - 1]->positionView().negative();
 }
 
 Window::~Window() {
@@ -15,9 +15,9 @@ Window::~Window() {
 
 void Window::Render(const DQ::PointF& _ptOffset) {
     DQ::PointF vec = m_ptPositionVirtualScreen + pointCentr;
-    for(int i = 0; i < (int) m_vGameBlock.size(); ++i)
+    for(iterator it = m_vGameBlock.begin(); it != m_vGameBlock.end(); it++)
     {
-        m_vGameBlock[i]->Render(vec);
+        (*it)->Render(vec);
     }
     g_pApplicationCursor->Render();
 }
@@ -43,13 +43,27 @@ void Window::Process() {
         m_ptPositionVirtualScreen.setY(m_ptPositionVirtualScreen.Y() + 1.f);
     }
 
+    MouseEvent evt = g_pApplicationCursor->getCurrentEvent();
+    if (evt.m_bPressedLButton) {
+        DQ::PointF vec = m_ptPositionVirtualScreen + pointCentr;
+        for(iterator it = m_vGameBlock.begin(); it != m_vGameBlock.end(); it++)
+        {
+            DQ::RectF rtAreaObject((*it)->positionView(), DQ::Size<float> (SPRITE_WIDTH, SPRITE_HEIGHT));
+            rtAreaObject += vec;
+            if (rtAreaObject.entrance(evt.m_ptMousePosition))
+            {
+                // Hit to object.
+            }
+        }
+
+    }
 }
 
 void Window::clearBlocks() {
 
-    for(int i = 0; i < (int) m_vGameBlock.size(); ++i) 
+    for(iterator it = m_vGameBlock.begin(); it != m_vGameBlock.end(); it++)
     {
-        delete m_vGameBlock[i];
+        delete (*it);
     }
     m_vGameBlock.clear();
 }

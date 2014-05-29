@@ -154,7 +154,8 @@ namespace DQ
         {
             return Point<T>(x,y);
         }
-        // if they have hit a point in the rectangle 
+        // If they have hit a point in the rectangle.
+        // @return If hit a point in the rectangle <code>true</code> otherwise <code>false</code>.
         bool entrance (const Point<T> & _pt)
         {
             if (w == 0 || h == 0) return false;
@@ -252,6 +253,5 @@ namespace DQ
 
         return color(0, 0, 0);
     }
-
 }
 #endif // HELPERS_H
