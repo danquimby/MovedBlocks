@@ -61,7 +61,8 @@ public:
     // @override method for processing object.
     void Process();
 
-    DQ::RectF area() const;
+    DQ::PointI positionGrid() const;
+    DQ::PointF positionView() const;
 private:
     void _init(const GameBlockType );
 
@@ -79,5 +80,48 @@ private:
 * @return If don't create object <code>null<code> otherwise current new pointer.
 */
 GameBlock* createBlock(const GameBlockType ,const DQ::PointI& /*_ptPosition*/);
+
+/*
+
+class CapturePosition {
+public:
+    // @param Pointer game block for capture.
+    CapturePosition(const GameBlock* );
+
+    // Update move.
+    // @param _ptSelf Self pointer.
+    // @return New vector for animation position.
+    DQ::PointF update(const DQ::PointF& _ptSelf);
+
+    // Clear pointer game block and stop capture.
+    void cleanCapture();
+
+    // @param Set new pointer game block.
+    void setCapture(const GameBlock* );
+private:
+    GameBlock*  m_pCaptureBlock;
+};
+
+*/
+    /*
+    // Get a Vector between object A and Target
+    double _nx = objT.X - objA.X;
+    double _ny = objT.Y - objA.Y;
+    // Get Distance
+    double _distance = Math.Sqrt((_nx*_nx) + (_ny*_ny));
+
+    // Normalize vector (make it length of 1.0)
+    double _vx = _nx / _distance;
+    double _vy = _ny / _distance;
+
+    // Move object based on vector and speed
+    objA.X += (float)_vx * objA.Speed;
+    objA.Y += (float)_vy * objA.Speed;
+
+    if (_distance < 0.5)
+    {
+    int a = 1;
+    }
+    */
 
 #endif // OBJECTS_H

@@ -1,6 +1,3 @@
-
-
-
 #include "window.h"
 
 #pragma comment (lib, "hge.lib")
@@ -23,7 +20,7 @@ bool FrameFunc()
 bool RenderFunc()
 {
     hge->Gfx_BeginScene();
-    hge->Gfx_Clear(DQ::colorConvert("blue").convertToDword());
+    hge->Gfx_Clear(DQ::colorConvert("gray").convertToDword());
 
     window->Render();
 

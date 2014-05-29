@@ -29,15 +29,22 @@ void GameBlock::moveObject(const DQ::PointI& _vecDirection) {
 }
 
 void GameBlock::Render(const DQ::PointF& _ptOffset) {
-    m_pBlockImage->Render((float) m_ptPostionOnGrid.X() * SPRITE_WIDTH, (float) m_ptPostionOnGrid.Y() * SPRITE_HEIGHT);
+    m_pBlockImage->Render(
+        (float) (m_ptPostionOnGrid.X() * SPRITE_WIDTH + _ptOffset.X()),
+        (float) (m_ptPostionOnGrid.Y() * SPRITE_HEIGHT + _ptOffset.Y())
+        );
 }
 
 void GameBlock::Process() {
 
 }
 
-DQ::RectF GameBlock::area() const {
-    return DQ::RectF();
+DQ::PointI GameBlock::positionGrid() const {
+    return m_ptPostionOnGrid;
+}
+
+DQ::PointF GameBlock::positionView() const {
+    return DQ::PointF(m_ptPostionOnGrid.X() * SPRITE_WIDTH, m_ptPostionOnGrid.Y() * SPRITE_HEIGHT);
 }
 
 void GameBlock::_init(const GameBlockType _type) {
