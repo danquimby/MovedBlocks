@@ -1,23 +1,48 @@
 #include "window.h"
 
-
 Window::Window() {
-    _initGameMap();
     g_pApplicationCursor = new Mouse;
+    _initGameMap();
+
+    // Set default virtual center.
+    m_ptPositionVirtualScreen = pointCentr;
+
+    m_ptPositionVirtualScreen = m_vGameBlock[m_vGameBlock.size() - 1]->positionView().negative();
 }
+
 Window::~Window() {
 }
 
 void Window::Render(const DQ::PointF& _ptOffset) {
+    DQ::PointF vec = m_ptPositionVirtualScreen + pointCentr;
     for(int i = 0; i < (int) m_vGameBlock.size(); ++i)
     {
-        m_vGameBlock[i]->Render();
+        m_vGameBlock[i]->Render(vec);
     }
     g_pApplicationCursor->Render();
 }
 
 void Window::Process() {
+    hge = DQ::cloneHGE();
     g_pApplicationCursor->Process();
+
+    if (hge->Input_GetKeyState(HGEK_LEFT)) 
+    {
+        m_ptPositionVirtualScreen.setX(m_ptPositionVirtualScreen.X() + 1.f);
+    }
+    if (hge->Input_GetKeyState(HGEK_RIGHT)) 
+    {
+        m_ptPositionVirtualScreen.setX(m_ptPositionVirtualScreen.X() - 1.f);
+    }
+    if (hge->Input_GetKeyState(HGEK_DOWN)) 
+    {
+        m_ptPositionVirtualScreen.setY(m_ptPositionVirtualScreen.Y() - 1.f);
+    }
+    if (hge->Input_GetKeyState(HGEK_UP)) 
+    {
+        m_ptPositionVirtualScreen.setY(m_ptPositionVirtualScreen.Y() + 1.f);
+    }
+
 }
 
 void Window::clearBlocks() {
@@ -28,6 +53,7 @@ void Window::clearBlocks() {
     }
     m_vGameBlock.clear();
 }
+
 void Window::_initGameMap() {
     m_vGameBlock.clear();
     GameBlock* block;

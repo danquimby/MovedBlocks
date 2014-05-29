@@ -58,9 +58,19 @@ namespace DQ
         T Y()const {return y;}
         void setX(T _x){x = _x;}
         void setY(T _y){y = _y;}
+        Point<T> positive() {
+            x = abs(x);
+            y = abs(y);
+            return *this;
+        }
+        Point<T> negative() {
+            x = -x;
+            y = -y;
+            return *this;
+        }
         bool isNull() const  
         {
-            return x == (T)NULL_VALUE && y == (T)NULL_VALUE;
+            return x == 0 && y == 0;
         }
         bool operator == (const Point& _pt) 
         {
@@ -71,6 +81,14 @@ namespace DQ
             x += _pt.X();
             y += _pt.Y();
             return *this;
+        }
+        Point<T> operator+ (const Point<T> & _pt) 
+        {
+            return Point<T>(x + _pt.X(), y + _pt.Y());
+        }
+        Point<T> operator- (const Point<T> & _pt) 
+        {
+            return Point<T>(x - _pt.X(), y - _pt.Y());
         }
 
     protected:
@@ -234,5 +252,6 @@ namespace DQ
 
         return color(0, 0, 0);
     }
+
 }
 #endif // HELPERS_H
