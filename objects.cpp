@@ -65,23 +65,52 @@ GameBlock* createBlock(const GameBlockType _type, const DQ::PointI& _ptPosition)
     return block;
 }
 
-CapturePosition::CapturePosition(const DQ::PointF&, const GameBlock* ) {
+AnimationMovePosition::AnimationMovePosition() {
+    m_nSpeed = 0;
+}
+AnimationMovePosition::AnimationMovePosition(const DQ::PointF& _ptFrom, const DQ::PointF& _ptTarget ) {
+    setNewPositionsForMoved(_ptFrom, _ptTarget);
+}
+
+void AnimationMovePosition::setNewPositionsForMoved(const DQ::PointF& _ptFrom, const DQ::PointF& _ptTarget) {
+    m_nSpeed = 1;
+    m_ptVectorFromPoint = _ptFrom;
+    m_ptVectorTarget = _ptTarget;
+
+    DBOUT(m_ptVectorFromPoint.Y());
+    DBOUT(" m_ptVectorFromPoint \n");
+    DBOUT(m_ptVectorTarget.Y());
+    DBOUT(" m_ptVectorTarget \n");
 
 }
 
-void CapturePositionsetNewPositionView(const DQ::PointF& ) {
+DQ::PointF AnimationMovePosition::updatePositions() {
 
+    if (m_nSpeed == 0.f) return DQ::PointF(0, 0);
+
+    float vectorX = 0.f;
+    float vectorY = 0.f;
+
+    // Get a Vector between object A and Target.
+    double _nx = m_ptVectorTarget.X() - m_ptVectorFromPoint.X();
+    double _ny = m_ptVectorTarget.Y() - m_ptVectorFromPoint.Y();
+
+    // Get Distance.
+    double _distance = sqrt((_nx*_nx) + (_ny*_ny));
+
+    // Normalize vector (make it length of 1.0)
+    double _vx = _nx / _distance;
+    double _vy = _ny / _distance;
+
+    // Move object based on vector and speed
+    vectorX += (float)_vx * m_nSpeed;
+    vectorY += (float)_vy * m_nSpeed;
+
+    m_ptVectorFromPoint += DQ::PointF(vectorX, vectorY);
+    if (_distance < 1.5)
+    {
+        m_nSpeed = 0;
+    }
+    return DQ::PointF(vectorX, vectorY).negative();
 }
 
-DQ::PointF CapturePosition::update() {
-
-    return DQ::PointF();
-}
-
-void CapturePosition::cleanCapture() {
-
-}
-
-void CapturePosition::setCapture(const GameBlock* ) {
-
-}

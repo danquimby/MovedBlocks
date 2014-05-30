@@ -82,6 +82,12 @@ namespace DQ
             y += _pt.Y();
             return *this;
         }
+        Point<T> operator-= (const Point<T> & _pt) 
+        {
+            x -= _pt.X();
+            y -= _pt.Y();
+            return *this;
+        }
         Point<T> operator+ (const Point<T> & _pt) 
         {
             return Point<T>(x + _pt.X(), y + _pt.Y());

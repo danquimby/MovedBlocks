@@ -1,12 +1,13 @@
 #include "window.h"
 
 Window::Window() {
+    m_pLastGameBlock = 0;
     g_pApplicationCursor = new Mouse;
     _initGameMap();
 
     // Set default virtual center.
-    m_ptPositionVirtualScreen = pointCentr;
-    m_ptPositionVirtualScreen = m_ptPositionVirtualScreen.negative();
+    m_ptPositionVirtualScreen.clean(); /*= pointCentr*/;
+    //m_ptPositionVirtualScreen = m_ptPositionVirtualScreen.negative();
   //  m_ptPositionVirtualScreen = m_vGameBlock[m_vGameBlock.size() - 1]->positionView().negative();
 }
 
@@ -53,10 +54,22 @@ void Window::Process() {
             if (rtAreaObject.entrance(evt.m_ptMousePosition))
             {
                 // Hit to object.
+                if (m_pLastGameBlock) 
+                {
+                    m_pTargetGameBlock = (*it);
+                    setNewPositionsForMoved(m_pLastGameBlock->positionView(), m_pTargetGameBlock->positionView());
+                    Sleep(200);
+                }
             }
         }
+    }
+    if (m_nSpeed > 0.f) 
+    {// if m_nSpeed equal 0 than position target equal position object.
+        m_ptPositionVirtualScreen += updatePositions();
+        m_pLastGameBlock = m_pTargetGameBlock;
 
     }
+
 }
 
 void Window::clearBlocks() {
@@ -81,5 +94,6 @@ void Window::_initGameMap() {
             if (block) m_vGameBlock.push_back(block);
         }
     }
+    m_pLastGameBlock = (*m_vGameBlock.begin());
 
 }

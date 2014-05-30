@@ -64,7 +64,10 @@ public:
     void Process();
 
     DQ::PointI positionGrid() const;
+
+    // Get position on global scene in pixels.
     DQ::PointF positionView() const;
+
 private:
     void _init(const GameBlockType );
 
@@ -84,53 +87,31 @@ private:
 GameBlock* createBlock(const GameBlockType ,const DQ::PointI& /*_ptPosition*/);
 
 // Animation position from position view to position target.
-class CapturePosition {
+class AnimationMovePosition {
 public:
-    // @param Position scene.
-    // @param Pointer game block for capture.
-    CapturePosition(const DQ::PointF&, const GameBlock* );
+    AnimationMovePosition();
+    // @param Point from moved.
+    // @param Point target.
+    AnimationMovePosition(const DQ::PointF&, const DQ::PointF& );
 
-    // @param Set new position to scene view.
-    void setNewPositionView(const DQ::PointF& );
+    // @param Point from moved.
+    // @param Point target.
+    void setNewPositionsForMoved(const DQ::PointF&, const DQ::PointF& );
+
     // Update move.
     // @return Vector for animation position in scene.
-    DQ::PointF update();
+    DQ::PointF updatePositions();
 
-    // Clear pointer game block and stop capture.
-    void cleanCapture();
-
-    // @param Set new pointer game block.
-    void setCapture(const GameBlock* );
-private:
-    // Capture object.
-    GameBlock*  m_pCaptureBlock;
-
-    // Position view scene.
-    DQ::PointF  m_ptVectorView;
-
+protected:
     // Speed animation position.
     int         m_nSpeed;
+
+private:
+    // Position view scene.
+    DQ::PointF  m_ptVectorFromPoint;
+
+    // Position view scene.
+    DQ::PointF  m_ptVectorTarget;
+
 };
-
-    /*
-    // Get a Vector between object A and Target
-    double _nx = objT.X - objA.X;
-    double _ny = objT.Y - objA.Y;
-    // Get Distance
-    double _distance = Math.Sqrt((_nx*_nx) + (_ny*_ny));
-
-    // Normalize vector (make it length of 1.0)
-    double _vx = _nx / _distance;
-    double _vy = _ny / _distance;
-
-    // Move object based on vector and speed
-    objA.X += (float)_vx * objA.Speed;
-    objA.Y += (float)_vy * objA.Speed;
-
-    if (_distance < 0.5)
-    {
-    int a = 1;
-    }
-    */
-
 #endif // OBJECTS_H

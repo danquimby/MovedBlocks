@@ -13,7 +13,7 @@ static const DQ::PointF pointCentr = DQ::PointF((float) SizeScene.Width() / 2.f,
 * Main window.
 *
 */
-class Window : public IDrawaibleObjects
+class Window : public AnimationMovePosition, public IDrawaibleObjects
 {
 public:
     Window();
@@ -39,6 +39,9 @@ private:
     // Default equal wScreen / 2 , hScreen / 2.
     DQ::PointF   m_ptPositionVirtualScreen;
     DQ::PointF   m_ptVectorDirection;
+
+    GameBlock*   m_pLastGameBlock;
+    GameBlock*   m_pTargetGameBlock;
 };
 
 #endif //WINDOW_H
