@@ -43,10 +43,6 @@ DQ::PointI GameBlock::positionGrid() const {
     return m_ptPostionOnGrid;
 }
 
-DQ::PointF GameBlock::positionView() const {
-    return DQ::PointF((float) m_ptPostionOnGrid.X() * SPRITE_WIDTH, (float) m_ptPostionOnGrid.Y() * SPRITE_HEIGHT);
-}
-
 void GameBlock::_init(const GameBlockType _type) {
     if (_type > GAME_BLOCK_MAX) return;
     m_pBlockImage = new hgeSprite(g_nTiledTexture,(float) (_type % 10) * SPRITE_WIDTH,(float) (_type / 10) * SPRITE_HEIGHT,SPRITE_WIDTH,SPRITE_HEIGHT);
@@ -112,5 +108,13 @@ DQ::PointF AnimationMovePosition::updatePositions() {
         m_nSpeed = 0;
     }
     return DQ::PointF(vectorX, vectorY).negative();
+}
+
+DQ::PointF calculationFromGrid(const DQ::PointI& _ptPosition) {
+    return DQ::PointF((float) _ptPosition.X() * SPRITE_WIDTH, (float) _ptPosition.Y() * SPRITE_HEIGHT);
+}
+
+DQ::PointF calculationFromGrid(const DQ::PointF& _ptPosition) {
+    return DQ::PointF(_ptPosition.X() * SPRITE_WIDTH, _ptPosition.Y() * SPRITE_HEIGHT);
 }
 

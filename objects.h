@@ -65,8 +65,6 @@ public:
 
     DQ::PointI positionGrid() const;
 
-    // Get position on global scene in pixels.
-    DQ::PointF positionView() const;
 
 private:
     void _init(const GameBlockType );
@@ -114,4 +112,8 @@ private:
     DQ::PointF  m_ptVectorTarget;
 
 };
+
+// Calculation from grid to pixels.
+DQ::PointF calculationFromGrid(const DQ::PointI& );
+DQ::PointF calculationFromGrid(const DQ::PointF& );
 #endif // OBJECTS_H

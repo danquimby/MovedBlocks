@@ -49,7 +49,7 @@ void Window::Process() {
         DQ::PointF vec = m_ptPositionVirtualScreen + pointCentr;
         for(iterator it = m_vGameBlock.begin(); it != m_vGameBlock.end(); it++)
         {
-            DQ::RectF rtAreaObject((*it)->positionView(), DQ::Size<float> (SPRITE_WIDTH, SPRITE_HEIGHT));
+            DQ::RectF rtAreaObject(calculationFromGrid((*it)->positionGrid()), DQ::Size<float> (SPRITE_WIDTH, SPRITE_HEIGHT));
             rtAreaObject += vec;
             if (rtAreaObject.entrance(evt.m_ptMousePosition))
             {
@@ -57,7 +57,7 @@ void Window::Process() {
                 if (m_pLastGameBlock) 
                 {
                     m_pTargetGameBlock = (*it);
-                    setNewPositionsForMoved(m_pLastGameBlock->positionView(), m_pTargetGameBlock->positionView());
+                    setNewPositionsForMoved(calculationFromGrid(m_pLastGameBlock->positionGrid()), calculationFromGrid(m_pTargetGameBlock->positionGrid()));
                     Sleep(200);
                 }
             }
