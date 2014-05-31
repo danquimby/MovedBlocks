@@ -8,6 +8,7 @@ enum TypeCharacter {
     TYPE_CHARACTER_MAN,
     TYPE_CHARACTER_ENEMY
 };
+
 /*
 * Class template characters and enemies.
 *
@@ -26,16 +27,18 @@ public:
     // @override method for processing object.
     void Process();
 
-    void moveVectorCharacter(const DQ::PointF& );
+    void moveVectorCharacter(const DQ::PointI& );
 
     // @return Position (System of calculation grid).
-    DQ::PointF position() const;
+    DQ::PointI position() const;
 private:
+    void    _init(const TypeCharacter );
 
     // Position in system of calculation grid.
-    DQ::PointF              m_ptPosition;
+    DQ::PointI              m_ptPosition;
 
     // Contains of body character.
+    // Default size equal 2.
     std::vector<GameBlock*> m_vBlocks;
 };
 
