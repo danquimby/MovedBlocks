@@ -9,7 +9,30 @@ enum TypeCharacter {
     TYPE_CHARACTER_ENEMY
 };
 
-/*
+/* BodyComplex
+* This class for defining and creating the body of the object.
+*
+*/
+typedef std::vector<std::vector<int> >  bodyComplexItems;
+typedef std::vector<int> widthBodyItems;
+
+class BodyComplex {
+public:
+    // @param Number of elements in the width.
+    // @param Number of elements in the height.
+    BodyComplex(int _width, int _height);
+
+    // Rebuilding the existing body.
+    void reBuildBody(int _width, int _height);
+
+    bodyComplexItems getBodyItems() const;
+    widthBodyItems getWidthBodyItems(int _height);
+private:
+    // Multidimensional array.
+    bodyComplexItems m_vBodyItmes;
+};
+
+/* GameCharacter
 * Class template characters and enemies.
 *
 */

@@ -1,5 +1,31 @@
 #include "characters.h"
 
+BodyComplex::BodyComplex(int _width, int _height) {
+    reBuildBody(_width, _height);
+}
+
+void BodyComplex::reBuildBody(int _width, int _height) {
+    m_vBodyItmes.resize(_height);
+    for (int i = 0; i < (int)m_vBodyItmes.size(); i++)
+    {
+        m_vBodyItmes[i].resize(_width);
+    }
+}
+
+bodyComplexItems 
+BodyComplex::getBodyItems() const {
+
+    return m_vBodyItmes;
+}
+
+widthBodyItems 
+BodyComplex::getWidthBodyItems(int _height) {
+    if (_height > (int)m_vBodyItmes.size()) return widthBodyItems();
+
+    return m_vBodyItmes.at(_height);
+}
+
+
 GameCharacter::GameCharacter(const DQ::PointI& _ptPosition, const TypeCharacter _type) {
     m_ptPosition = _ptPosition;
     _init(_type);
