@@ -84,7 +84,7 @@ bool parserXmlMap::parseNewMap(const std::string& _filename) {
             vRow.push_back(tileGID);
 
             tileElement = tileElement->NextSiblingElement("tile");
-            if (++row >= bitMap.m_szTiledMap.Width())
+            if (++row >= bitMap.m_szTiledMap.width())
             {
                 row = 0;
                 bitMap.m_vContainsMap[column++] = vRow;

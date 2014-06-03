@@ -5,9 +5,10 @@
 
 #include "parserXmlMap.h"
 #include "mouse.h"
+#include "characters.h"
 
 static const DQ::SizeI  SizeScene = DQ::SizeI(1024,768);
-static const DQ::PointF pointCentr = DQ::PointF((float) SizeScene.Width() / 2.f, (float) SizeScene.Height() / 2.f);
+static const DQ::PointF pointCentr = DQ::PointF((float) SizeScene.width() / 2.f, (float) SizeScene.height() / 2.f);
 
 /*
 * Main window.

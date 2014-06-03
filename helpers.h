@@ -23,6 +23,7 @@
 
 namespace DQ
 {
+    typedef std::vector<std::string> strings;
 
     enum ResourceTypeDate
     {
@@ -112,8 +113,8 @@ namespace DQ
         }
         Size(T _w,T _h)
             : w(_w), h(_h) {}
-        T Width()const {return w;}
-        T Height()const {return h;}
+        T width()const {return w;}
+        T height()const {return h;}
         void setWidth(T _w){w = _w;}
         void setHeight(T _h){h = _h;}
     protected:
@@ -132,8 +133,8 @@ namespace DQ
             : Point<T>(_x, _y), Size<T>(_w, _h) {}
         Rect<T> operator= (const Size<T> & _size) 
         {
-            setWidth(_size.Width());
-            setHeight(_size.Height());
+            setWidth(_size.width());
+            setHeight(_size.height());
             return *this;
         }
         Rect<T> operator= (const Point<T> & _pt) 
@@ -259,5 +260,20 @@ namespace DQ
 
         return color(0, 0, 0);
     }
+
+// Parser value from string with separator.
+// Example.
+// strings ss = std::parserFromString("denis,fedor,artem,mama",",");
+
+    inline strings parserFromString(const std::string sString, const std::string sSeparator) {
+        std::vector<std::string> result;
+        std::string string = sString;
+        for (int i = 0; i < (int)string.size(); ++i)
+        {
+            result.push_back(string.substr(i,string.find(sSeparator)));
+            i += string.find(sSeparator);
+        }
+        return result;
+    };
 }
 #endif // HELPERS_H

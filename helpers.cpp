@@ -8,11 +8,11 @@ namespace DQ
     std::vector< RectF > calculationRectangleFrames(Size<float>& _rectObject,int _nFrames) {
         std::vector< RectF > result;
         RectF rect;
-        rect.setWidth(_rectObject.Width());
-        rect.setHeight(_rectObject.Height());
+        rect.setWidth(_rectObject.width());
+        rect.setHeight(_rectObject.height());
         for (int i = 0; i < _nFrames; ++i)
         {
-            rect.setX(_rectObject.Width() * i);
+            rect.setX(_rectObject.width() * i);
             result.push_back(rect);
         }
         return result;
@@ -30,8 +30,8 @@ namespace DQ
     RectI Grid::getCell(int _row, int _col) {
         RectI result;
         result = m_szRectCell;
-        result.setX(result.Width() * _row);
-        result.setY(result.Height() * _col);
+        result.setX(result.width() * _row);
+        result.setY(result.height() * _col);
         return result;
     }
 

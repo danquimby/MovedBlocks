@@ -16,14 +16,36 @@ enum TypeCharacter {
 typedef std::vector<std::vector<int> >  bodyComplexItems;
 typedef std::vector<int> widthBodyItems;
 
+// Contain game object.
+struct ContainsComplexObject {
+    ContainsComplexObject(const DQ::SizeI& _size, const std::string& _contains, const std::string& _separator = ",") 
+        : m_szSizeObject(_size), m_sContainsData(_contains), m_sSeparator(_separator)
+    {
+    }
+    // Size complex object.
+    DQ::SizeI   m_szSizeObject;
+
+    // Data object.
+    std::string m_sContainsData;
+
+    // Separator (for parsing from string).
+    std::string m_sSeparator;
+};
+
+/* BodyComplex
+* Template complex body for using in game.
+*
+* Example using the class
+* BodyComplex body(ContainsComplexObject(DQ::SizeI(2,2),"1,1,2,2",","));
+* Make array int[][]
+ */
 class BodyComplex {
 public:
-    // @param Number of elements in the width.
-    // @param Number of elements in the height.
-    BodyComplex(int _width, int _height);
+    // @param Set existing body.
+    BodyComplex(const ContainsComplexObject& );
 
     // Rebuilding the existing body.
-    void reBuildBody(int _width, int _height);
+    void reBuildBody(const ContainsComplexObject& );
 
     bodyComplexItems getBodyItems() const;
     widthBodyItems getWidthBodyItems(int _height);
@@ -40,9 +62,10 @@ class GameCharacter : public IDrawaibleObjects {
 public:
 
     // @param Position character(in system of calculation grid).
-    GameCharacter(const DQ::PointI& , const TypeCharacter);
+    GameCharacter(const DQ::PointI&, BodyComplex& );
 
-    void modifyCharacter(const TypeCharacter);
+    // For modify need struct BodyComplex.
+    void modifyCharacter( BodyComplex& );
 
     // @override method for render to scene.
     void Render(const DQ::PointF& _ptOffset = DQ::PointF());
@@ -55,13 +78,13 @@ public:
     // @return Position (System of calculation grid).
     DQ::PointI position() const;
 private:
-    void    _init(const TypeCharacter );
+    // Clear sprite of contains, and all settings set in default.
+    void    clean();
 
     // Position in system of calculation grid.
     DQ::PointI              m_ptPosition;
 
     // Contains of body character.
-    // Default size equal 2.
     std::vector<GameBlock*> m_vBlocks;
 };
 

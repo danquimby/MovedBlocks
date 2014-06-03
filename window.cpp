@@ -1,5 +1,9 @@
 #include "window.h"
 
+
+
+GameCharacter*  character;
+
 Window::Window() {
     m_pLastGameBlock = 0;
     g_pApplicationCursor = new Mouse;
@@ -20,6 +24,7 @@ void Window::Render(const DQ::PointF& _ptOffset) {
     {
         (*it)->Render(vec);
     }
+    character->Render(vec);
     g_pApplicationCursor->Render();
 }
 
@@ -96,4 +101,5 @@ void Window::_initGameMap() {
     }
     m_pLastGameBlock = (*m_vGameBlock.begin());
 
+    character = new GameCharacter(DQ::PointI(1,1),BodyComplex(ContainsComplexObject(DQ::SizeI(2,2),"1,1,2,2",",")));
 }

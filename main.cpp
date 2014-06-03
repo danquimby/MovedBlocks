@@ -1,4 +1,5 @@
 #include "window.h"
+#include "characters.h"
 
 #pragma comment (lib, "hge.lib")
 #pragma comment (lib, "hgehelp.lib")
