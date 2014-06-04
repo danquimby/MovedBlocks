@@ -9,6 +9,20 @@
 typedef std::vector<int> bitRow;
 typedef std::map<int, bitRow > bitMap;
 
+// Structure for game object.
+struct BitObjectItem {
+    // Size object in point.
+    DQ::SizeI        m_szSizeObject;
+
+    // Position in grid of system.
+    DQ::PointI       m_pPosition;
+
+    // Contains bit data (tiled map).
+    std::string m_sData;
+};
+
+typedef std::vector<BitObjectItem> bitObjectItems;
+
 struct BitMap {
     void clean() {
         m_vContainsMap.clear();
@@ -23,8 +37,10 @@ struct BitMap {
     // first column array, second row array.
     bitMap      m_vContainsMap;
 
-    // File name to png tiled image.
+    // File name to 'png' tiled image.
     std::string m_sTileFilename;
+
+    bitObjectItems m_vContinObjects;
 };
 /*
 * Parsing from special file (*.tmx) and creating an array of iD objects.
@@ -44,6 +60,8 @@ public:
     bool parseNewMap(const std::string& );
     bitMap getContains() const;
     bitRow getRow(int _row);
+
+    bitObjectItems getComplexObjects() const;
 
 private:
     // Bit full parser map from special file.

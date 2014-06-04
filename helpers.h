@@ -265,7 +265,7 @@ namespace DQ
 // Example.
 // strings ss = std::parserFromString("denis,fedor,artem,mama",",");
 
-    inline strings parserFromString(const std::string sString, const std::string sSeparator) {
+    inline strings parserFromString(const std::string sString, const std::string sSeparator = ",") {
         std::vector<std::string> result;
         std::string string = sString;
         for (int i = 0; i < (int)string.size(); ++i)
@@ -275,5 +275,21 @@ namespace DQ
         }
         return result;
     };
+
+/*
+*   Complex examples.
+*   bitItem.m_vData = DQ::converFromStrings(
+*       DQ::parserFromString(gameObjectsProperty->Attribute("data"))
+*       );
+*/
+
+    inline std::vector<int> converFromStrings(const strings& _data) {
+        std::vector<int> result;
+        for (int i = 0; i < (int)_data.size(); ++i)
+        {
+            result.push_back(atoi(_data[i].c_str()));
+        }
+        return result;
+    }
 }
 #endif // HELPERS_H

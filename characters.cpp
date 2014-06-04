@@ -44,12 +44,11 @@ void GameCharacter::modifyCharacter(BodyComplex& body) {
         posVector.setX(0);
         for (int w = 0; w < (int)body.getWidthBodyItems(h).size(); ++w)
         {
-            m_vBlocks.push_back(createBlock(GAME_BLOCK_GROUND,m_ptPosition + posVector));
+            m_vBlocks.push_back(createBlock((GameBlockType) body.getWidthBodyItems(h)[w],m_ptPosition + posVector));
             posVector.setX(posVector.X() + 1);
         }
         posVector.setY(posVector.Y() + 1);
     }
-    
 }
 
 void GameCharacter::Render(const DQ::PointF& _ptOffset) {

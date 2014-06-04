@@ -1,9 +1,5 @@
 #include "window.h"
 
-
-
-GameCharacter*  character;
-
 Window::Window() {
     m_pLastGameBlock = 0;
     g_pApplicationCursor = new Mouse;
@@ -11,8 +7,6 @@ Window::Window() {
 
     // Set default virtual center.
     m_ptPositionVirtualScreen.clean(); /*= pointCentr*/;
-    //m_ptPositionVirtualScreen = m_ptPositionVirtualScreen.negative();
-  //  m_ptPositionVirtualScreen = m_vGameBlock[m_vGameBlock.size() - 1]->positionView().negative();
 }
 
 Window::~Window() {
@@ -20,11 +14,14 @@ Window::~Window() {
 
 void Window::Render(const DQ::PointF& _ptOffset) {
     DQ::PointF vec = m_ptPositionVirtualScreen + pointCentr;
-    for(iterator it = m_vGameBlock.begin(); it != m_vGameBlock.end(); it++)
+    for(itBlock it = m_vGameBlock.begin(); it != m_vGameBlock.end(); it++)
     {
         (*it)->Render(vec);
     }
-    character->Render(vec);
+    for(itComplexBlock it = m_vComplexGameBlock.begin(); it != m_vComplexGameBlock.end(); it++)
+    {
+        (*it)->Render(vec);
+    }
     g_pApplicationCursor->Render();
 }
 
@@ -52,7 +49,7 @@ void Window::Process() {
     MouseEvent evt = g_pApplicationCursor->getCurrentEvent();
     if (evt.m_bPressedLButton) {
         DQ::PointF vec = m_ptPositionVirtualScreen + pointCentr;
-        for(iterator it = m_vGameBlock.begin(); it != m_vGameBlock.end(); it++)
+        for(itBlock it = m_vGameBlock.begin(); it != m_vGameBlock.end(); it++)
         {
             DQ::RectF rtAreaObject(calculationFromGrid((*it)->positionGrid()), DQ::Size<float> (SPRITE_WIDTH, SPRITE_HEIGHT));
             rtAreaObject += vec;
@@ -79,10 +76,15 @@ void Window::Process() {
 
 void Window::clearBlocks() {
 
-    for(iterator it = m_vGameBlock.begin(); it != m_vGameBlock.end(); it++)
+    for(itBlock it = m_vGameBlock.begin(); it != m_vGameBlock.end(); it++)
     {
         delete (*it);
     }
+    for(itComplexBlock it = m_vComplexGameBlock.begin(); it != m_vComplexGameBlock.end(); it++)
+    {
+        delete (*it);
+    }
+    m_vComplexGameBlock.clear();
     m_vGameBlock.clear();
 }
 
@@ -101,5 +103,13 @@ void Window::_initGameMap() {
     }
     m_pLastGameBlock = (*m_vGameBlock.begin());
 
-    character = new GameCharacter(DQ::PointI(1,1),BodyComplex(ContainsComplexObject(DQ::SizeI(2,2),"1,1,2,2",",")));
+    for(int i = 0; i < (int) pars.getComplexObjects().size(); ++i)
+    {
+        BitObjectItem item = pars.getComplexObjects()[i];
+        m_vComplexGameBlock.push_back(
+            new GameCharacter(item.m_pPosition,BodyComplex(ContainsComplexObject(item.m_szSizeObject,item.m_sData)))
+            );
+    }
+    
+    //character = new GameCharacter(DQ::PointI(1,1),BodyComplex(ContainsComplexObject(DQ::SizeI(2,2),"1,1,2,2",",")));
 }

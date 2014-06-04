@@ -19,6 +19,10 @@ bitRow parserXmlMap::getRow(int _column) {
     return it->second;
 }
 
+bitObjectItems parserXmlMap::getComplexObjects() const {
+    return bitMap.m_vContinObjects;
+}
+
 bool parserXmlMap::parseNewMap(const std::string& _filename) {
     int firstTileID;
     bitMap.clean();
@@ -48,6 +52,24 @@ bool parserXmlMap::parseNewMap(const std::string& _filename) {
     image = tilesetElement->FirstChildElement("image");
     bitMap.m_sTileFilename = image->Attribute("source");
 
+    TiXmlElement *gameObjects;
+    TiXmlElement *gameObjectsProperty;
+    gameObjects  = map->FirstChildElement("objectgroup")->FirstChildElement("object");
+    while(gameObjects)
+    {
+        BitObjectItem   bitItem;
+        bitItem.m_pPosition = DQ::PointI(atoi(gameObjects->Attribute("x")) / SPRITE_WIDTH, atoi(gameObjects->Attribute("y")) / SPRITE_HEIGHT);
+        bitItem.m_szSizeObject = DQ::SizeI(atoi(gameObjects->Attribute("width")) / SPRITE_WIDTH, atoi(gameObjects->Attribute("height")) / SPRITE_HEIGHT);
+        gameObjectsProperty = gameObjects->FirstChildElement("properties")->FirstChildElement("property");
+        while(gameObjectsProperty)
+        {
+            bitItem.m_sData = gameObjectsProperty->Attribute("value");
+            gameObjectsProperty = gameObjectsProperty->NextSiblingElement("property");
+
+        }
+        bitMap.m_vContinObjects.push_back(bitItem);
+        gameObjects = gameObjects->NextSiblingElement("object");
+    }
     // Work with layers.
     TiXmlElement *layerElement;
     layerElement = map->FirstChildElement("layer");

@@ -32,7 +32,11 @@ private:
 
     // Contains game block.
     std::list<GameBlock*> m_vGameBlock;
-    typedef std::list<GameBlock*>::iterator iterator;
+    typedef std::list<GameBlock*>::iterator itBlock;
+
+    // Contains complex of game block.
+    std::list<GameCharacter*> m_vComplexGameBlock;
+    typedef std::list<GameCharacter*>::iterator itComplexBlock;
 
     // Pointer main engine.
     HGE* hge;
