@@ -291,5 +291,30 @@ namespace DQ
         }
         return result;
     }
+
+    /*
+    * Template class for clear container of points.
+    * example 
+    *
+        class Foo {};
+        std::vector<Foo*> v;
+        v.push_back(new Foo);
+        DeleteAll(v);
+    *
+    * NOTE: for vector, list, set, deque.
+    */
+    template <typename ForwardIterator>
+    inline void DeleteAll(ForwardIterator begin, ForwardIterator end){
+        while (begin != end) {
+            delete *begin;
+            ++begin;
+        }
+    }
+
+    template <typename Container>
+    inline void DeleteAll(Container& c){
+        DeleteAll(c.begin(), c.end());
+        c.clear();
+    }
 }
 #endif // HELPERS_H

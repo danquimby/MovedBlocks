@@ -16,6 +16,29 @@ struct IDrawaibleObjects {
     virtual void Process() = 0;
 };
 
+class BaseObject {
+public:
+    BaseObject(BaseObject* parent = 0) {
+        if (parent)
+            parent->addChild(this);
+    }
+    virtual ~BaseObject() {
+        for (int i = 0; i < (int)m_vParents.size();++i)
+        {
+            if (m_vParents[i])
+                delete m_vParents[i];
+        }
+    }
+    std::vector<BaseObject*> getChild() const {
+        return m_vParents;
+    }
+    void addChild(BaseObject* _parent) {
+        m_vParents.push_back(_parent);
+    }
+private:
+    std::vector<BaseObject*>    m_vParents;
+};
+
 enum GameBlockType {
     GAME_BLOCK_NONE,
     GAME_BLOCK_GRASS,
