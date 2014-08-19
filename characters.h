@@ -9,6 +9,8 @@ enum TypeCharacter {
     TYPE_CHARACTER_ENEMY
 };
 
+
+
 /* BodyComplex
 * This class for defining and creating the body of the object.
 *

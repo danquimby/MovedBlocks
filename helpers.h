@@ -4,8 +4,8 @@
 #include <sstream>
 #include <vector>
 
-#include "hge/hge.h"
-#include "hge/hgeanim.h"
+#include "hge.h"
+#include "hgeanim.h"
 
 #define DBOUT( s )            \
 {                             \
