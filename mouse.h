@@ -5,11 +5,13 @@
 #include "helpers.h"
 #include "hge/hgeanim.h"
 
+
 struct MouseEvent {
     DQ::PointF  m_ptMousePosition;
     bool        m_bPressedLButton;
     bool        m_bPressedRButton;
 };
+
 enum MouseType {
     MOUSE_NORMAL,
     MOUSE_WAIT
