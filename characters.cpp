@@ -1,5 +1,5 @@
 #include "characters.h"
-
+//
 BodyComplex::BodyComplex(const ContainsComplexObject& _template) {
     reBuildBody(_template);
 }
